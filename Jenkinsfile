@@ -48,8 +48,8 @@ pipeline {
             steps {
                 script{
                     sshagent([aws-linux-server-keypair]){
-                    sh "scp server-config.sh ${DEV_SERVER}:/home/ec2-user"
-                    sh "ssh ${DEV_SERVER} 'bash ~/server-config.sh'"
+                    sh "scp -o StrictHostKeyChecking=no server-config.sh ${DEV_SERVER}:/home/ec2-user"
+                    sh "ssh -o StrictHostKeyChecking=no ${DEV_SERVER} 'bash ~/server-config.sh'"
                     }
                 }
             }
