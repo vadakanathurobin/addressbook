@@ -30,7 +30,9 @@ pipeline {
             }
         }
         stage('Package') {
-            agent any
+            agent {
+                label 'linux_slave'
+            }
             steps {
                 script{
                 sh "mvn package"
