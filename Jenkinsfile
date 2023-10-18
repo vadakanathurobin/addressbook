@@ -13,6 +13,7 @@ pipeline {
                 script{
                 echo 'Compile'
                 echo "Compile in env : ${params.Env}"
+                sh "mvn compile"
                 }
             }
         }
@@ -25,6 +26,7 @@ pipeline {
             steps {
                 script{
                 echo 'UnitTest'
+                sh "mvn test"
                 }
             }
         }
@@ -32,6 +34,7 @@ pipeline {
             steps {
                 script{
                 echo "Package Version ${params.AppVersion}"
+                sh "mvn package"
                 }
             }
         }        
