@@ -2,7 +2,7 @@ pipeline {
     agent none
 
     parameters{
-        string(name:"Env",defaultValue:"Test",description:"env to compile")non
+        string(name:"Env",defaultValue:"Test",description:"env to compile")
         booleanParam(name:"executeTests",defaultValue:true,description:"Decide to execute test cases")
         choice(name:"AppVersion",choices:['1.0','1.1','1.2'])
     }
@@ -33,6 +33,9 @@ pipeline {
             }
         }
         stage('Package') {
+            agent{
+                label 'linux_slave'
+            }
             steps {
                 script{
                 echo "Package Version ${params.AppVersion}"
