@@ -47,7 +47,7 @@ pipeline {
             agent any
             steps {
                 script{
-                    sshagent([aws-linux-server-keypair]){
+                    sshagent(['aws-linux-server-keypair']) {
                     sh "scp -o StrictHostKeyChecking=no server-config.sh ${DEV_SERVER}:/home/ec2-user"
                     sh "ssh -o StrictHostKeyChecking=no ${DEV_SERVER} 'bash ~/server-config.sh'"
                     }
