@@ -33,9 +33,7 @@ pipeline {
             }
         }
         stage('Package') {
-            agent{
-                label 'linux_slave'
-            }
+            agent any
             steps {
                 script{
                 echo "Package Version ${params.AppVersion}"
