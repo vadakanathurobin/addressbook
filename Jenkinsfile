@@ -3,6 +3,8 @@ pipeline {
 
     parameters{
         string(name:"Env",defaultValue:"Test",description:"env to compile")
+        booleanParam(name:'testExecute',defaultValue:true,description:'Execute Test Cases')
+        choice(name:'APPVERSION',choices:['1.0'.'1.1','1.2'])
     }
     stages {
         
@@ -15,6 +17,9 @@ pipeline {
             }
         }
         stage('UnitTest') {
+            when{
+                ${params.testExecute}==true
+            }
             steps {
                 script{
                 echo 'UnitTest'
@@ -24,7 +29,7 @@ pipeline {
         stage('Package') {
             steps {
                 script{
-                echo 'Package'
+                echo 'Package Version ${params.APPVERSION}'
                 }
             }
         }        
