@@ -17,12 +17,7 @@ pipeline {
             }
         }
         stage('UnitTest') {
-            when{
-                expression{
-                    params.testExecute == true
-                }
-                
-            }
+
             steps {
                 script{
                 echo 'UnitTest'
