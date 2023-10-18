@@ -9,6 +9,10 @@ pipeline {
         booleanParam(name:"executeTests",defaultValue:true,description:"Decide to execute test cases")
         choice(name:"AppVersion",choices:['1.0','1.1','1.2'])
     }
+
+    environment{
+        DEV_SERVER="ec2-user@172.31.34.81"
+    }
     stages {
         
         stage('Compile') {
@@ -20,7 +24,9 @@ pipeline {
             }
         }
         stage('UnitTest') {
-            agent any
+            agent {
+                label 'linux_slave'
+            }
             when{
                 expression{
                     params.executeTests == true
@@ -38,12 +44,13 @@ pipeline {
             }
         }
         stage('Package') {
-            agent {
-                label 'linux_slave'
-            }
+            agent any
             steps {
                 script{
-                sh "mvn package"
+                    sshagent([aws-linux-server-keypair]){
+                    sh "scp server-config.sh ${DEV_SERVER}:/home/ec2-user"
+                    sh "ssh ${DEV_SERVER} 'bash ~/server-config.sh'"
+                    }
                 }
             }
         }        
