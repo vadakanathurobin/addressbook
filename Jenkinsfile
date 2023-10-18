@@ -27,7 +27,7 @@ pipeline {
         stage('Package') {
             steps {
                 script{
-                echo "Package Version ${params.APPVERSION}"
+                echo "Package Version"
                 }
             }
         }        
