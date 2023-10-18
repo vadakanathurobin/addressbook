@@ -1,14 +1,15 @@
 pipeline {
-    agent any
+    agent none
 
     parameters{
-        string(name:"Env",defaultValue:"Test",description:"env to compile")
+        string(name:"Env",defaultValue:"Test",description:"env to compile")non
         booleanParam(name:"executeTests",defaultValue:true,description:"Decide to execute test cases")
         choice(name:"AppVersion",choices:['1.0','1.1','1.2'])
     }
     stages {
         
         stage('Compile') {
+            agent any
             steps {
                 script{
                 echo 'Compile'
@@ -18,6 +19,7 @@ pipeline {
             }
         }
         stage('UnitTest') {
+            agent any
             when{
                 expression{
                     params.executeTests == true
