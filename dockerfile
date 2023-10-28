@@ -5,6 +5,8 @@ WORKDIR /app
 
 copy ./pom.xml ./pom.xml
 
+run mvn dependency:go-offline
+
 copy src ./src
 
 run mvn package
